@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import MyForm from './components/MyForm'
 import v4 from 'uuid/v4'
+import ToggleButton from './components/ToggleButton'
 
 class App extends Component {
   constructor(props){
@@ -37,6 +38,7 @@ class App extends Component {
 
   addTask(description){
     const tasks = [...this.state.tasks, {id:v4(), description: description, completed: false}]
+     // ↑変数宣言tasksじゃないとなぜか動かない
     const state = {...this.state, tasks}
     this.setState(state)
   }
@@ -55,6 +57,9 @@ class App extends Component {
             >{description}</li>
           ))}
         </ul>
+        <ToggleButton>done</ToggleButton>
+        <ToggleButton>not yet</ToggleButton>
+        <ToggleButton>all</ToggleButton>
       </div>
     );
   }
