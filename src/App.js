@@ -35,14 +35,21 @@ class App extends Component {
     return newState
   }
 
+  addTask(description){
+    const tasks = [...this.state.tasks, {id:v4(), description: description, completed: false}]
+    const state = {...this.state, tasks}
+    this.setState(state)
+  }
+
   render() {
     const {tasks} = this.state
     return (
       <div>
-        <MyForm />
+        <MyForm myEvent={desc => this.addTask(desc)}/>
         <ul>
           {tasks.map(({id, description, completed}) =>(
           <li
+            key={id}
             onClick={()=>{this.setState(this.toggleTask(id, this.state))}}
             style={{textDecoration: completed ? 'line-through' : 'none'}}
             >{description}</li>
