@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import MyForm from './components/MyForm'
 import v4 from 'uuid/v4'
 import ToggleButton from './components/ToggleButton'
+import TodoList from './components/TodoList'
 
 class App extends Component {
   constructor(props){
@@ -23,7 +24,8 @@ class App extends Component {
           description: 'task3',
           completed: false
         }
-      ]
+      ],
+      current: 'all'
     }
   }
 
@@ -48,15 +50,9 @@ class App extends Component {
     return (
       <div>
         <MyForm myEvent={desc => this.addTask(desc)}/>
-        <ul>
-          {tasks.map(({id, description, completed}) =>(
-          <li
-            key={id}
-            onClick={()=>{this.setState(this.toggleTask(id, this.state))}}
-            style={{textDecoration: completed ? 'line-through' : 'none'}}
-            >{description}</li>
-          ))}
-        </ul>
+        <TodoList
+          tasks={tasks}
+          myEvent={(id)=>{this.setState(this.toggleTask(id, this.state))}}/>
         <ToggleButton>done</ToggleButton>
         <ToggleButton>not yet</ToggleButton>
         <ToggleButton>all</ToggleButton>
