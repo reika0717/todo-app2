@@ -1,7 +1,8 @@
 import React from 'react'
 
-export default({children}) => {
+export default({children, myEvent}) => {
   return(
-      <button>{children}</button>
+      <button
+        onClick={myEvent}>{children}</button>
   )
 }

@@ -1,9 +1,19 @@
 import React from 'react'
 
-export default({tasks, myEvent}) => {
+export default({current, tasks, myEvent}) => {
   return(
     <ul>
-      {tasks.map(({id, description, completed}) =>(
+      {tasks.filter(({completed})=>{
+        switch (current) {
+          case 'done':
+            return completed
+          case 'not yet':
+            return !completed
+          default:
+            return true
+        }
+      })
+        .map(({id, description, completed}) =>(
       <li
         key={id}
         onClick={() => myEvent(id)}

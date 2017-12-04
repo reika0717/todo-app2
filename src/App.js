@@ -46,16 +46,23 @@ class App extends Component {
   }
 
   render() {
-    const {tasks} = this.state
+    const {tasks, current} = this.state
     return (
       <div>
         <MyForm myEvent={desc => this.addTask(desc)}/>
         <TodoList
+          current={current}
           tasks={tasks}
           myEvent={(id)=>{this.setState(this.toggleTask(id, this.state))}}/>
-        <ToggleButton>done</ToggleButton>
-        <ToggleButton>not yet</ToggleButton>
-        <ToggleButton>all</ToggleButton>
+        <ToggleButton
+          myEvent={()=>this.setState({...this.state, current: 'done'})}
+          >done</ToggleButton>
+        <ToggleButton
+          myEvent={()=>this.setState({...this.state, current: 'not yet'})}
+          >not yet</ToggleButton>
+        <ToggleButton
+          myEvent={()=>this.setState({...this.state, current: 'all'})}
+          >all</ToggleButton>
       </div>
     );
   }
