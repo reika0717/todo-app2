@@ -1,42 +1,33 @@
-import React, { Component } from 'react';
+import React from 'react';
 import MyForm from './components/MyForm'
-import v4 from 'uuid/v4'
 import ToggleButton from './components/ToggleButton'
 import TodoList from './components/TodoList'
 import store from './store'
-import {addTodoAction, toggleTodoAction} from './actions'
+import {addTodoAction, toggleTodoAction, currentAction} from './actions'
 
-class App extends Component {
-  constructor(props){
-    super(props)
-    this.state ={
-      tasks :store.getState(),
-      current: 'all'
-    }
-  }
+const App = () => {
+  const current = store.getState().current
+  const tasks = store.getState().todoList
 
-  render() {
-    const {current} = this.state
-    const tasks = store.getState()
-    return (
-      <div>
-        <MyForm myEvent={desc => store.dispatch(addTodoAction(desc))}/>
-        <TodoList
-          current={current}
-          tasks={tasks}
-          myEvent={id=>{store.dispatch(toggleTodoAction(id))}}/>
-        <ToggleButton
-          myEvent={()=>this.setState({...this.state, current: 'done'})}
-          >done</ToggleButton>
-        <ToggleButton
-          myEvent={()=>this.setState({...this.state, current: 'not yet'})}
-          >not yet</ToggleButton>
-        <ToggleButton
-          myEvent={()=>this.setState({...this.state, current: 'all'})}
-          >all</ToggleButton>
-      </div>
-    );
+return (
+    <div>
+      <MyForm myEvent={desc => store.dispatch(addTodoAction(desc))}/>
+      <TodoList
+        current={current}
+        tasks={tasks}
+        />
+      <p>{current}</p>
+      <ToggleButton
+        myEvent={()=>{store.dispatch(currentAction('done'))}}
+        >done</ToggleButton>
+      <ToggleButton
+        myEvent={()=>store.dispatch(currentAction('not yet'))}
+        >not yet</ToggleButton>
+      <ToggleButton
+        myEvent={()=>store.dispatch(currentAction('all'))}
+        >all</ToggleButton>
+    </div>
+    )
   }
-}
 
 export default App;

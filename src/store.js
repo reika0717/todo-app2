@@ -1,8 +1,8 @@
 import {createStore} from 'redux'
-import { todoListReducer } from './reducers/todoListReducer'
+import rootReducer from './reducers'
 
 /*Init Store*/
-export default createStore(todoListReducer)
+export default createStore(rootReducer)
 
 /* TODO: todoListReducerの中に入っている、個別のTodoに対する処理を
  +   todoReducerに移譲する

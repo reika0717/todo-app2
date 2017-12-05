@@ -1,4 +1,3 @@
-import React from 'react'
 import TYPE from './_actionTypes'
 
 /* Actions */
@@ -8,4 +7,8 @@ export const addTodoAction = description =>({
 
 export const toggleTodoAction = id =>({
   type: TYPE.TOGGLE_TODO, payload: {id}
+})
+
+export const currentAction = mode => ({
+  type: TYPE.CURRENT_TODO, payload: {mode}
 })
