@@ -25,7 +25,7 @@ const initialState = [
 ]
 
 /* Actions */
-export const addTodoAction = ({description}) =>({
+export const addTodoAction = description =>({
    type: TYPE.ADD_TODO, payload: {description}
  })
 

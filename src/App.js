@@ -3,7 +3,7 @@ import MyForm from './components/MyForm'
 import v4 from 'uuid/v4'
 import ToggleButton from './components/ToggleButton'
 import TodoList from './components/TodoList'
-import store from './store'
+import store, {addTodoAction, toggleTodoAction} from './store'
 
 class App extends Component {
   constructor(props){
@@ -14,31 +14,16 @@ class App extends Component {
     }
   }
 
-  toggleTask(id, state){
-    const tasks = state.tasks.map( task =>{
-    if(task.id === id) return {...task, completed: !task.completed}
-    else return {...task}
-    })
-    const newState={...state, tasks}
-    return newState
-  }
-
-  addTask(description){
-    const tasks = [...this.state.tasks, {id:v4(), description: description, completed: false}]
-     // ↑変数宣言tasksじゃないとなぜか動かない
-    const state = {...this.state, tasks}
-    this.setState(state)
-  }
-
   render() {
-    const {tasks, current} = this.state
+    const {current} = this.state
+    const tasks = store.getState()
     return (
       <div>
-        <MyForm myEvent={desc => this.addTask(desc)}/>
+        <MyForm myEvent={desc => store.dispatch(addTodoAction(desc))}/>
         <TodoList
           current={current}
           tasks={tasks}
-          myEvent={(id)=>{this.setState(this.toggleTask(id, this.state))}}/>
+          myEvent={id=>{store.dispatch(toggleTodoAction(id))}}/>
         <ToggleButton
           myEvent={()=>this.setState({...this.state, current: 'done'})}
           >done</ToggleButton>
