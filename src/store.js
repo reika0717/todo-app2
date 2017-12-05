@@ -34,7 +34,8 @@ export const toggleTodoAction = id =>({
 })
 
 /* Reducers */
-const todoListReducer = (state = initialState, {type, payload}) => {
+const todoListReducer = (state = initialState, action) => {
+  const {type, payload}= action
   switch (type) {
     case TYPE.ADD_TODO:
     return [...state,
@@ -43,12 +44,7 @@ const todoListReducer = (state = initialState, {type, payload}) => {
              completed: false}]
     case TYPE.TOGGLE_TODO:
     return state.map(todo => {
-      if(todo.id !== payload.id) return todo
-
-      return {
-        ...todo,
-        completed: !todo.completed
-      }
+      return todoReducer(todo, action)
     })
   default:
     return state
@@ -57,6 +53,11 @@ const todoListReducer = (state = initialState, {type, payload}) => {
 
 /*Init Store*/
 export default createStore(todoListReducer)
+
+const todoReducer = (state, action) =>{
+  if (state.id !== action.payload.id) return state
+  return {...state, completed: !state.completed}
+}
 
 /* TODO: todoListReducerの中に入っている、個別のTodoに対する処理を
  +   todoReducerに移譲する
