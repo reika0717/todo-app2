@@ -3,7 +3,8 @@ import MyForm from './components/MyForm'
 import v4 from 'uuid/v4'
 import ToggleButton from './components/ToggleButton'
 import TodoList from './components/TodoList'
-import store, {addTodoAction, toggleTodoAction} from './store'
+import store from './store'
+import {addTodoAction, toggleTodoAction} from './actions'
 
 class App extends Component {
   constructor(props){
