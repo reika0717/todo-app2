@@ -18,13 +18,13 @@ return (
         />
       <p>{current}</p>
       <ToggleButton
-        myEvent={()=>{store.dispatch(currentAction('done'))}}
+        onClick={()=>{store.dispatch(currentAction('done'))}}
         >done</ToggleButton>
       <ToggleButton
-        myEvent={()=>store.dispatch(currentAction('not yet'))}
+        onClick={()=>store.dispatch(currentAction('not yet'))}
         >not yet</ToggleButton>
       <ToggleButton
-        myEvent={()=>store.dispatch(currentAction('all'))}
+        onClick={()=>store.dispatch(currentAction('all'))}
         >all</ToggleButton>
     </div>
     )
